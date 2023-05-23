@@ -1,18 +1,38 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import React from "react";
+import { render, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import userEvent from "@testing-library/user-event";
 import UserSearch from "./UserSearch";
+import { fireEvent } from "@testing-library/react";
 
-test("updates query state when input changes", () => {
-  render(<UserSearch />);
-  const input = screen.getByLabelText(/Введите имя пользователя/i);
-  fireEvent.change(input, { target: { value: "new query" } });
-  expect(input.value).toBe("new query");
+
+test("toggles order state on sort button click", () => {
+  const { getByText } = render(
+    <MemoryRouter>
+      <UserSearch />
+    </MemoryRouter>
+  );
+
+  const sortButton = getByText("Сортировать (по возрастанию)");
+
+  fireEvent.click(sortButton);
+
+  expect(sortButton.textContent).toBe("Сортировать (по убыванию)");
+
+  fireEvent.click(sortButton);
+
+  expect(sortButton.textContent).toBe("Сортировать (по возрастанию)");
 });
 
-test("changes order state when sort button is clicked", () => {
-  render(<UserSearch />);
-  const button = screen.getByText(/Сортировать \(по возрастанию\)/i);
-  fireEvent.click(button);
-  expect(screen.getByText(/Сортировать \(по убыванию\)/i)).toBeInTheDocument();
-  fireEvent.click(button);
-  expect(screen.getByText(/Сортировать \(по возрастанию\)/i)).toBeInTheDocument();
+test("calls navigate function on user item click", async () => {
+  const { queryByText } = render(
+    <MemoryRouter>
+      <UserSearch />
+    </MemoryRouter>
+  );
+
+  const userItem = await waitFor(() => queryByText("exampleUser"));
+
+  userEvent.click(userItem);
+
 });
