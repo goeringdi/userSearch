@@ -1,0 +1,29 @@
+.userDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    background-color: black;
+    font-family: 'Stratos', sans-serif;
+  }
+  
+  .userName {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .userInfo {
+    font-size: 1.5em;
+  }
+
+  .button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    background-color: blueviolet;
+  }
