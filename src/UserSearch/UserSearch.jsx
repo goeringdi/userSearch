@@ -29,6 +29,7 @@ const UserSearch = () => {
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        aria-label="Введите имя пользователя"
       />
       <button className={S.button} onClick={() => setOrder(order === "asc" ? "desc" : "asc")}>
         Сортировать ({order === "asc" ? "по возрастанию" : "по убыванию"})
