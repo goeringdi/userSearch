@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import S from './UserDetails.module.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -9,11 +8,12 @@ const UserDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://api.github.com/users/${username}`)
-      .then(response => {
-        setUserDetails(response.data);
+    fetch(`https://api.github.com/users/${username}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUserDetails(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Ошибка при получении данных о пользователе:', error);
       });
   }, [username]);
